@@ -4,7 +4,8 @@
             [clojure.browser.repl :as repl]
             [domina :as d]
             [domina.events :as evt]
-            [fetch.remotes :as remotes])
+            [fetch.remotes :as remotes]
+            [goog.dom.selection :as selection])
 
   (:use-macros [crate.def-macros :only [defpartial]])
   (:require-macros [fetch.macros :as fm]))
@@ -35,17 +36,10 @@
   (d/set-html! (d/by-id "results") (items results))
   (helper/show (d/by-id "results")))
 
-(defn balanced-parens? [query]
-  "Actually, this doesn't work. [[ and [{]} are both considered passing here. Need to make it smarter."
-  (let [pairs [[\{ \}]
-               [\[ \]]
-               [\( \)]]]
-    (every? (fn [r] (d/log r) (true? r)) (map (fn [pair]
-                         (even? (count (filter #(some #{%} pair) query)))) pairs))))
 
 (defn submit-query [_]  
   (let [query (d/value (d/by-id "query-text"))
-        valid-query? (balanced-parens? query)]
+        [valid-query? error-offsets] (helper/balanced-parens? query)]
     (if valid-query?
       (do 
         (helper/show (d/by-id "loader"))
@@ -54,10 +48,16 @@
          (display-results results)
          (helper/hide (d/by-id "loader"))
          (helper/hide (d/by-id "error-messages"))))
-                                        ; Inline because it's late and I'm tired
       (do
         (helper/show (d/by-id "error-messages"))
+        (d/set-html! (d/by-id "error-offsets")
+                     (clojure.string/join ", " error-offsets))
+        (select-character (d/by-id "query-text") (first error-offsets))
         (helper/hide (d/by-id "loader"))))))
+
+(defn select-character [text-area offset]
+  (selection/setStart text-area offset)
+  (selection/setEnd text-area (inc offset)))
 
 
 (defn ^:export setup []
