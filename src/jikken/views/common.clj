@@ -6,9 +6,10 @@
             (html5
               [:head
                [:title "jikken"]
-               (include-css "/css/reset.css")]
+               (include-css "/css/bootstrap.min.css"
+                            "/css/styles.css")]
               [:body
-               [:div#wrapper
+               [:div#wrapper.container
                 content]
                (include-js
                    "/js/bin-debug/main.js")]))

@@ -5,8 +5,10 @@
 
 (defpage "/" []
          (common/layout
-           [:p "Welcome to jikken"]
-           [:textarea#query-text
-            {:rows 3} "the query"]
-           [:input#query-submit.btn {:value "run" :type "submit"}]
-           [:p#results]))
+           [:div.query
+            [:h1 "実験"]
+            [:textarea#query-text
+             {:rows 3
+              :placeholder "Your query"}]
+            [:input#query-submit.btn.btn-large.btn-primary {:value "run" :type "submit"}]
+            [:p#results.well]]))
