@@ -3,6 +3,6 @@
             [noir.content.getting-started])
   (:use [noir.core :only [defpage]]))
 
-(defpage "/welcome" []
+(defpage "/" []
          (common/layout
            [:p "Welcome to jikken"]))
