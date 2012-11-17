@@ -55,7 +55,9 @@
          (helper/hide (d/by-id "loader"))
          (helper/hide (d/by-id "error-messages"))))
                                         ; Inline because it's late and I'm tired
-      (helper/show (d/by-id "error-messages")))))
+      (do
+        (helper/show (d/by-id "error-messages"))
+        (helper/hide (d/by-id "loader"))))))
 
 
 (defn ^:export setup []
