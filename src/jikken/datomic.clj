@@ -2,16 +2,17 @@
   (:require [datomic.api :as d]))
 
 (def db-name
-  (or (System/getenv "DATOMIC_DB") "git")
+  (or (System/getenv "DATOMIC_DB") "git"))
 
-(def default-uri
-  (str "datomic:free://localhost:4334/" db-name))
+(def uri
+  (or (System/getenv "DATOMIC_URI")
+      (str "datomic:free://localhost:4334/" db-name)))
+
+(println (System/getenv))
 
 (defn connect []
-  (let [uri (or (System/getenv "DATOMIC_URI")
-                default-uri)]
-    (println "Connecting to uri: " uri)
-    (d/connect uri)))
+  (println "Connecting to uri: " uri)
+  (d/connect uri))
 
 ; Example rules
 (def rules
@@ -38,5 +39,5 @@
 ;               (?c :commit/authoredAt ?date)])
 ;          (d/db conn) rules "clojure.core/+")
 
-(defn query [q]
+(defn query [q conn]
   (apply hash-set (d/q q (d/db conn) rules)))
