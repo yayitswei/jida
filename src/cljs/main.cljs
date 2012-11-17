@@ -63,8 +63,9 @@ x))\n  ([x y] (. clojure.lang.Numbers (add x y)))\n  ([x y & more]\n
              [:div.result-items (map item items)]])
 
 (defn display-results [results]
-    (d/set-html! (d/by-id "results") (items results))
-    (d/set-style! (d/by-id "results") "display" "block"))
+  (d/log "Display results: " results)
+  (d/set-html! (d/by-id "results") (items results))
+  (d/set-style! (d/by-id "results") "display" "block"))
 
 (defn submit-query [_]
   (fm/remote
@@ -77,5 +78,7 @@ x))\n  ([x y] (. clojure.lang.Numbers (add x y)))\n  ([x y & more]\n
   (when (development?)
     (d/log "Running in dev mode. Connecting to repl")
     (repl/connect (str host ":9000/repl"))))
+
+
 
 (set! (.-onload js/window) setup)

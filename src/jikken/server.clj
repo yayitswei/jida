@@ -23,7 +23,8 @@
 
 (defremote query-codeq [q]
   (println "Received query for" q)
-  (let [result (jida/query q)]
+  (let [result (try (jida/query q)
+                 (catch Exception e {:error (str e)}))]
     (println)
     (println "Finished: " result)
     result))
