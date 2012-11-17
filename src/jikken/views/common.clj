@@ -8,7 +8,7 @@
 (defpartial layout [& content]
             (html5
               [:head
-               [:title "jikken"]
+               [:title "Jida - Explore your Clojure projects"]
                (include-css "/css/bootstrap.simplex.min.css"
                             "/css/styles.css")]
               [:body

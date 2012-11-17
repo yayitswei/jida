@@ -8,7 +8,7 @@
 (defpage "/" []
          (common/layout
            [:div.query
-            [:h1 "実験 - Explore Clojure Projects"]
+            [:h1 "Jida - Explore Clojure Projects"]
             [:div.repos
              [:p "Available repos: "
               [:div#available-repos]]]
