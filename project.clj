@@ -21,12 +21,11 @@
                            :output-dir "resources/public/js/bin-debug"
                            :optimizations :whitespace
                            :pretty-print true}}
-                         }
                          :prod
                          {:source-path "src/cljs"
                           :compiler
                           {:output-to "resources/public/js/bin/main.js"
                            :output-dir "resources/public/js/bin"
-                           :optimizations :simple}}
+                           :optimizations :simple}}}
                         }
             :main jikken.server)
