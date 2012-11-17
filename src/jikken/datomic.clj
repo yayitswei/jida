@@ -8,8 +8,6 @@
   (or (System/getenv "DATOMIC_URI")
       (str "datomic:free://localhost:4334/" db-name)))
 
-(println (System/getenv))
-
 (defn connect []
   (println "Connecting to uri: " uri)
   (d/connect uri))
