@@ -9,8 +9,9 @@
          (common/layout
            [:div.query
             [:h1 "実験"]
+            [:h2 "Pre-built rules:"]
             [:ul
-            (map #(vector :li (str (first (first %)))) jida/rules)]
+             (map #(vector :li (str (first (first %)))) jida/rules)]
             [:textarea#query-text
              {:rows 3
               :placeholder "Your query"}]
