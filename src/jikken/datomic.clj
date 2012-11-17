@@ -20,7 +20,7 @@
     [(codeq-commits ?cq ?c) [?cq :codeq/file ?f] (file-commits ?f ?c)]])
 
 ; Example query
-; (d/q '[:find ?src (min ?date)
+; (def built-in-query '[:find ?src (min ?date)
 ;               :in $ % ?name
 ;               :where
 ;               [?n :code/name ?name]
@@ -29,5 +29,8 @@
 ;               [?cs :code/text ?src]
 ;               [?cq :codeq/file ?f]
 ;               (file-commits ?f ?c)
-;               (?c :commit/authoredAt ?date)]
-;           (d/db conn) rules "clojure.core/+")
+;               (?c :commit/authoredAt ?date)])
+;          (d/db conn) rules "clojure.core/+")
+
+(defn query [q]
+  (d/q q (d/db conn) rules))
