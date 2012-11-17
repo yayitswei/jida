@@ -13,7 +13,7 @@
 
 (defn show [node-seq]
   "Sets the display style attr of a node-seq to block (visible)"
-  (d/set-style! node-seq "display" nil))
+  (d/set-style! node-seq "display" "block"))
 
 (defn hide [node-seq]
   "Sets the display style attr of a node-seq to none (invisible)"

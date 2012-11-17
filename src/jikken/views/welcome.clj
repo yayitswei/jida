@@ -17,5 +17,5 @@
               :placeholder "Your query"}]
             [:input#query-submit.btn.btn-large.btn-primary {:value "run" :type "submit"}]
             [:img#loader {:style "display:none;" :src "https://www.zenboxapp.com/assets/loading.gif"}]
-            [:div#error-messages.alert {:style "display:none;"} "Your parens are properly balanced, please check again"]
+            [:div#error-messages.alert {:style "display:none;"} "Your parens aren't properly balanced, please check again"]
             [:p#results]]))
