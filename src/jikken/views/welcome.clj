@@ -16,4 +16,4 @@
              {:rows 3
               :placeholder "Your query"}]
             [:input#query-submit.btn.btn-large.btn-primary {:value "run" :type "submit"}]
-            [:p#results.well]]))
+            [:p#results]]))

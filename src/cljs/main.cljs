@@ -52,13 +52,15 @@ x))\n  ([x y] (. clojure.lang.Numbers (add x y)))\n  ([x y & more]\n
 (. clojure.lang.Numbers (addP x y)))\n  ([x y & more]\n   (reduce1 +
 (+ x y) more)))" #inst "2010-06-18T20:20:32.000-00:00"]])
 
-(defpartial item [[text date]]
-            [:div.result-item.alert
-             [:h4.alert-heading date]
-             [:p text]])
+(defpartial item [fields]
+            [:div.result-item
+             [:table.table.table-bordered.table-striped
+              (map #(vector :tr [:td %]) fields)]])
 
 (defpartial items [items]
-            [:div.results (map item items)])
+            [:div.results
+             [:p (count items) " returned."]
+             [:div.result-items (map item items)]])
 
 (defn display-results [results]
     (d/set-html! (d/by-id "results") (items results))
@@ -71,7 +73,7 @@ x))\n  ([x y] (. clojure.lang.Numbers (add x y)))\n  ([x y & more]\n
 
 (defn ^:export setup []
   (evt/listen! (d/by-id "query-submit") :click submit-query)
-;  (display-results sample-results)
+  (display-results sample-results)
   (when (development?)
     (d/log "Running in dev mode. Connecting to repl")
     (repl/connect (str host ":9000/repl"))))
