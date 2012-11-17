@@ -26,6 +26,6 @@
                           :compiler
                           {:output-to "resources/public/js/bin/main.js"
                            :output-dir "resources/public/js/bin"
-                           :optimizations :simple}}}
+                           :optimizations :advanced}}}
                         }
             :main jikken.server)
