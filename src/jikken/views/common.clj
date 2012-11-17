@@ -2,6 +2,9 @@
   (:use [noir.core :only [defpartial]]
         [hiccup.page :only [include-css include-js html5]]))
 
+(defn prod? []
+  (get (System/getenv) "LEIN_NO_DEV"))
+
 (defpartial layout [& content]
             (html5
               [:head
@@ -11,5 +14,9 @@
               [:body
                [:div#wrapper.container
                 content]
-               (include-js
-                   "/js/bin-debug/main.js")]))
+               (if (prod?)
+                 (include-js
+                   "/js/bin/main.js")
+                 (include-js
+                   "/js/bin-debug/main.js")
+                 )]))
