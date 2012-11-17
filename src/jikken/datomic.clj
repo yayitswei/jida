@@ -1,7 +1,7 @@
 (ns jikken.datomic
   (:require [datomic.api :as d]))
 
-(def db-name "overtone")
+(def db-name "git")
 
 (def uri (str "datomic:free://localhost:4334/" db-name))
 
