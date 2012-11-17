@@ -24,6 +24,12 @@
              [:p (count items) " returned."]
              [:div.result-items (map item items)]])
 
+(defpartial repo [[repo]]
+  [:a {:href repo :target "_blank"} repo])
+
+(defpartial repos [repos]
+  [:div (interpose ", " (map repo repos))])
+
 (defn display-results [results]
   (d/log "Display results: " results)
   (d/set-html! (d/by-id "results") (items results))
@@ -54,7 +60,14 @@
     (display-results results)
     (hide (d/by-id "loader"))))
 
+
 (defn ^:export setup []
+  (fm/remote
+   (query-codeq "[:find ?repo-names :where [?repos :repo/uri ?repo-names]]") [result]
+   (d/log "result: " result)
+   (d/set-html! (d/by-id "available-repos")
+                (repos result)))
+
   (evt/listen! (d/by-id "query-submit") :click submit-query)
 ;;  (display-results sample-results)
   (when (development?)
