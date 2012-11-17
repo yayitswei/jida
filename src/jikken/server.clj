@@ -11,4 +11,6 @@
                         :ns 'jikken})))
 
 (defremote query-codeq [q]
+           (println q)
+           (println (class q))
            "blah")

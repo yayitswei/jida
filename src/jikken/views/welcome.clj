@@ -5,4 +5,8 @@
 
 (defpage "/" []
          (common/layout
-           [:p "Welcome to Jikken..."]))
+           [:p "Welcome to jikken"]
+           [:textarea#query-text
+            {:rows 3} "the query"]
+           [:input#query-submit.btn {:value "run" :type "submit"}]
+           [:p#results]))
