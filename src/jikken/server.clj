@@ -3,6 +3,16 @@
             [jikken.datomic :as jida])
   (:use [noir.fetch.remotes]))
 
+; Ideas
+; 1. Function-specific queries: explore functions
+;   a. Function history: Most frequent commit author ("Who changed this function most?")
+;   b. Calculate code complexity for a function over time,
+;        sort by current most complex functions,
+;        who contributed most complexity,
+;        when?
+; 2. Repo-wide queries: explore projects
+; 3. Author-specific queries: explore contributor history
+
 (server/load-views-ns 'jikken.views)
 
 (defn -main [& m]
@@ -14,5 +24,6 @@
 (defremote query-codeq [q]
   (println "Received query for" q)
   (let [result (jida/query q)]
-    (println "Finished!")
+    (println)
+    (println "Finished: " result)
     result))
