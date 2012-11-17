@@ -9,6 +9,9 @@
          (common/layout
            [:div.query
             [:h1 "実験 - Explore Clojure Projects"]
+            [:div.repos
+             [:p "Available repos: "
+              [:div#available-repos]]]
             [:textarea#query-text
              {:rows 3
               :placeholder "Your query"}]
