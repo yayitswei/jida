@@ -7,6 +7,7 @@
 
 (def conn (d/connect uri))
 
+; Example rules
 (def rules
   '[[(node-files ?n ?f) [?n :node/object ?f] [?f :git/type :blob]]
     [(node-files ?n ?f) [?n :node/object ?t] [?t :git/type :tree]
@@ -18,14 +19,15 @@
     [(file-commits ?f ?c) (object-nodes ?f ?n) [?c :commit/tree ?n]]
     [(codeq-commits ?cq ?c) [?cq :codeq/file ?f] (file-commits ?f ?c)]])
 
-(d/q '[:find ?src (min ?date)
-              :in $ % ?name
-              :where
-              [?n :code/name ?name]
-              [?cq :clj/def ?n]
-              [?cq :codeq/code ?cs]
-              [?cs :code/text ?src]
-              [?cq :codeq/file ?f]
-              (file-commits ?f ?c)
-              (?c :commit/authoredAt ?date)]
-          (d/db conn) rules "clojure.core/+")
+; Example query
+; (d/q '[:find ?src (min ?date)
+;               :in $ % ?name
+;               :where
+;               [?n :code/name ?name]
+;               [?cq :clj/def ?n]
+;               [?cq :codeq/code ?cs]
+;               [?cs :code/text ?src]
+;               [?cq :codeq/file ?f]
+;               (file-commits ?f ?c)
+;               (?c :commit/authoredAt ?date)]
+;           (d/db conn) rules "clojure.core/+")
