@@ -1,5 +1,6 @@
 (ns jikken.server
-  (:require [noir.server :as server])
+  (:require [noir.server :as server]
+            [jikken.datomic :as jida])
   (:use [noir.fetch.remotes]))
 
 (server/load-views-ns 'jikken.views)
@@ -11,6 +12,7 @@
                         :ns 'jikken})))
 
 (defremote query-codeq [q]
-           (println q)
-           (println (class q))
-           "blah")
+  (println "Received query for" q)
+  (let [result (jida/query q)]
+    (println "Finished!")
+    result))
