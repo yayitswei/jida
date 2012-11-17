@@ -1,5 +1,6 @@
 (ns jikken.server
-  (:require [noir.server :as server]))
+  (:require [noir.server :as server])
+  (:use [noir.fetch.remotes]))
 
 (server/load-views-ns 'jikken.views)
 
@@ -9,3 +10,5 @@
     (server/start port {:mode mode
                         :ns 'jikken})))
 
+(defremote query-codeq [q]
+           "blah")
