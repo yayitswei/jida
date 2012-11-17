@@ -1,10 +1,10 @@
 (defproject jikken "0.1.0-SNAPSHOT"
+            :plugins [[lein-cljsbuild "0.2.9"]]
             :description "FIXME: write this!"
             :dependencies [[org.clojure/clojure "1.4.0"]
                            [domina "1.0.1"]
                            [fetch "0.1.0-alpha2"]
                            [crate "0.2.1"]
-                           [lein-cljsbuild "0.2.9"]
                            [noir "1.3.0-beta3"]]
             :min-lein-version "2.0.0"
             :repl-options {:nrepl-middleware
