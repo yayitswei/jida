@@ -5,7 +5,9 @@
 
 (def uri (str "datomic:free://localhost:4334/" db-name))
 
-(def conn (d/connect uri))
+(defn connect []
+  (println "Connecting to uri: " uri)
+  (d/connect uri))
 
 ; Example rules
 (def rules
@@ -32,5 +34,5 @@
 ;               (?c :commit/authoredAt ?date)])
 ;          (d/db conn) rules "clojure.core/+")
 
-(defn query [q]
+(defn query [q conn]
   (d/q q (d/db conn) rules))
