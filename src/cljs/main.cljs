@@ -4,7 +4,6 @@
             [domina.events :as evt]
             [clojure.browser.repl :as repl]))
 
-
 (defn development? []
   (= document/domain "localhost"))
 (def host (str "http://" document/domain))
