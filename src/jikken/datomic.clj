@@ -1,11 +1,17 @@
 (ns jikken.datomic
   (:require [datomic.api :as d]))
 
-(def db-name "jikken")
+(def db-name
+  (or (System/getenv "DATOMIC_DB") "git")
 
-(def uri (str "datomic:free://localhost:4334/" db-name))
+(def default-uri
+  (str "datomic:free://localhost:4334/" db-name))
 
-(def conn (d/connect uri))
+(defn connect []
+  (let [uri (or (System/getenv "DATOMIC_URI")
+                default-uri)]
+    (println "Connecting to uri: " uri)
+    (d/connect uri)))
 
 ; Example rules
 (def rules
@@ -31,21 +37,6 @@
 ;               (file-commits ?f ?c)
 ;               (?c :commit/authoredAt ?date)])
 ;          (d/db conn) rules "clojure.core/+")
-
-
-; (query '[:find ?email (min ?date)
-;          :in $ %
-;          :where
-;          [?n :code/name ?name]
-;          [?cq :clj/def ?n]
-;          [?cq :codeq/code ?cs]
-;          [?cs :code/text ?src]
-;          [?cq :codeq/file ?f]
-;          (file-commits ?f ?c)
-;          (?c :commit/author ?author)
-;          (?c :commit/message ?message)
-;          (?author email/address ?email)
-;          (?c :commit/authoredAt ?date)])
 
 (defn query [q]
   (apply hash-set (d/q q (d/db conn) rules)))

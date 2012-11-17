@@ -15,15 +15,19 @@
 
 (server/load-views-ns 'jikken.views)
 
+(def conn (atom nil))
+
 (defn -main [& m]
   (let [mode (keyword (or (first m) :dev))
         port (Integer. (get (System/getenv) "PORT" "8080"))]
+    (reset! conn (jida/connect))
     (server/start port {:mode mode
                         :ns 'jikken})))
 
 (defremote query-codeq [q]
   (println "Received query for" q)
-  (let [result (jida/query q)]
+  (let [result (try (jida/query q @conn)
+                 (catch Exception e {:error (str e)}))]
     (println)
     (println "Finished: " result)
     result))
