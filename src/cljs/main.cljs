@@ -73,7 +73,7 @@ x))\n  ([x y] (. clojure.lang.Numbers (add x y)))\n  ([x y & more]\n
 
 (defn ^:export setup []
   (evt/listen! (d/by-id "query-submit") :click submit-query)
-  (display-results sample-results)
+;;  (display-results sample-results)
   (when (development?)
     (d/log "Running in dev mode. Connecting to repl")
     (repl/connect (str host ":9000/repl"))))
