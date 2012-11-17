@@ -1,7 +1,7 @@
 (ns jikken.datomic
   (:require [datomic.api :as d]))
 
-(def db-name "overtone")
+(def db-name "jikken")
 
 (def uri (str "datomic:free://localhost:4334/" db-name))
 
@@ -32,5 +32,20 @@
 ;               (?c :commit/authoredAt ?date)])
 ;          (d/db conn) rules "clojure.core/+")
 
+
+; (query '[:find ?email (min ?date)
+;          :in $ %
+;          :where
+;          [?n :code/name ?name]
+;          [?cq :clj/def ?n]
+;          [?cq :codeq/code ?cs]
+;          [?cs :code/text ?src]
+;          [?cq :codeq/file ?f]
+;          (file-commits ?f ?c)
+;          (?c :commit/author ?author)
+;          (?c :commit/message ?message)
+;          (?author email/address ?email)
+;          (?c :commit/authoredAt ?date)])
+
 (defn query [q]
-  (d/q q (d/db conn) rules))
+  (apply hash-set (d/q q (d/db conn) rules)))
