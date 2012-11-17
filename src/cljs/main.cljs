@@ -55,7 +55,8 @@ x))\n  ([x y] (. clojure.lang.Numbers (add x y)))\n  ([x y & more]\n
 (defpartial item [fields]
             [:div.result-item
              [:table.table.table-bordered.table-striped
-              (map #(vector :tr [:td %]) fields)]])
+              [:tbody
+               (map #(vector :tr [:td %]) fields)]]])
 
 (defpartial items [items]
             [:div.results

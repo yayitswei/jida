@@ -6,7 +6,7 @@
             (html5
               [:head
                [:title "jikken"]
-               (include-css "/css/bootstrap.min.css"
+               (include-css "/css/bootstrap.simplex.min.css"
                             "/css/styles.css")]
               [:body
                [:div#wrapper.container
