@@ -9,7 +9,7 @@
             :min-lein-version "2.0.0"
             :repl-options {:nrepl-middleware
                            [cemerick.piggieback/wrap-cljs-repl]}
-            {:builds
+            :cljsbuild {:builds
                         {:dev
                          {:source-path "src/cljs"
                           :compiler
@@ -19,4 +19,3 @@
                            :pretty-print true}}
                          }}
             :main jikken.server)
-
