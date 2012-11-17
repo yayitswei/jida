@@ -11,6 +11,8 @@
             :min-lein-version "2.0.0"
             :repl-options {:nrepl-middleware
                            [cemerick.piggieback/wrap-cljs-repl]}
+            :profiles {:production
+                       {:hooks [leiningen.cljsbuild]}}
             :cljsbuild {:builds
                         {:dev
                          {:source-path "src/cljs"
@@ -19,5 +21,12 @@
                            :output-dir "resources/public/js/bin-debug"
                            :optimizations :whitespace
                            :pretty-print true}}
-                         }}
+                         }
+                         :prod
+                         {:source-path "src/cljs"
+                          :compiler
+                          {:output-to "resources/public/js/bin/main.js"
+                           :output-dir "resources/public/js/bin"
+                           :optimizations :simple}}
+                        }
             :main jikken.server)

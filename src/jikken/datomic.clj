@@ -3,11 +3,14 @@
 
 (def db-name "git")
 
-(def uri (str "datomic:free://localhost:4334/" db-name))
+(def default-uri
+  (str "datomic:free://localhost:4334/" db-name))
 
 (defn connect []
-  (println "Connecting to uri: " uri)
-  (d/connect uri))
+  (let [uri (or (System/getenv "DATOMIC_URI")
+                default-uri)]
+    (println "Connecting to uri: " uri)
+    (d/connect uri)))
 
 ; Example rules
 (def rules
