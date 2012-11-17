@@ -5,6 +5,7 @@
                            [domina "1.0.1"]
                            [fetch "0.1.0-alpha2"]
                            [crate "0.2.1"]
+                           [fetch "0.1.0-alpha2"]
                            [noir "1.3.0-beta3"]]
             :min-lein-version "2.0.0"
             :repl-options {:nrepl-middleware
