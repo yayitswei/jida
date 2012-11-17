@@ -5,4 +5,4 @@
 
 (defpage "/" []
          (common/layout
-           [:p "Welcome to jikken"]))
+           [:p "Welcome to Jikken..."]))
