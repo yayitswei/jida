@@ -35,12 +35,26 @@
   (d/set-html! (d/by-id "results") (items results))
   (helper/hide (d/by-id "results")))
 
+(defn balanced-parens? [query]
+  "Actually, this doesn't work. [[ and [{]} are both considered passing here. Need to make it smarter."
+  (let [pairs [[\{ \}]
+               [\[ \]]
+               [\( \)]]]
+    (every? (fn [r] (d/log r) (true? r)) (map (fn [pair]
+                         (even? (count (filter #(some #{%} pair) query)))) pairs))))
+
 (defn submit-query [_]
   (helper/show (d/by-id "loader"))
-  (fm/remote
-    (query-codeq (d/value (d/by-id "query-text"))) [results]
-    (display-results results)
-    (helper/hide (d/by-id "loader"))))
+  (let [query (d/value (d/by-id "query-text"))
+        valid-query? (balanced-parens? query)]
+    (if valid-query?
+      (fm/remote
+       (query-codeq query) [results]
+       (display-results results)
+       (helper/hide (d/by-id "loader"))
+       (helper/hide (d/by-id "error-messages")))
+                                        ; Inline because it's late and I'm tired
+      (helper/show (d/by-id "error-messages")))))
 
 
 (defn ^:export setup []
