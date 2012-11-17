@@ -12,12 +12,11 @@
 
 (defn submit-query [_]
   (fm/remote (query-codeq (d/value (d/by-id "query-text"))) [result]
-             (d/set-text! (d/by-id "results") result)))
+             (d/set-text! (d/by-id "results") result)
+             (d/set-style! (d/by-id "results") "display" "block")))
 
 (defn ^:export setup []
-  (fm/remote (query-codeq '[:blah :test :test]) [result] (d/log result))
-
-  (evt/listen! (d/by-id "query-text") :click submit-query)
+  (evt/listen! (d/by-id "query-submit") :click submit-query)
 
   (when (development?)
     (d/log "Running in dev mode. Connecting to repl")
