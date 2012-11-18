@@ -17,7 +17,7 @@
 
 (def default-redis-uri "redis://localhost")
 
-(def redis-conn (atom nil))
+(defonce redis-conn (atom nil))
 
 (defn connect-redis []
   (let [uri (or (System/getenv "REDISTOGO_URL") default-redis-uri)]
@@ -25,7 +25,7 @@
 
 (server/load-views-ns 'jikken.views)
 
-(def conn (atom nil))
+(defonce conn (atom nil))
 
 (defn -main [& m]
   (let [mode (keyword (or (first m) :dev))
@@ -42,3 +42,6 @@
     (println)
     (println "Finished: " result)
     result))
+
+(defremote queue-import [address]
+  (redis/rpush @redis-conn "tasks" address))

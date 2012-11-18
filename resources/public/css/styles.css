@@ -30,3 +30,12 @@ body {
   display: none;
   margin-top: 7px;
 }
+
+#import-repo-btn {
+  margin-bottom: 12px;
+  margin-left: 10px;
+}
+
+#import-status {
+  display: none;
+}

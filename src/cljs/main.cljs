@@ -27,10 +27,10 @@
              [:div.result-items (map item items)]])
 
 (defpartial repo [[repo]]
-  [:a {:href repo :target "_blank"} repo])
+            [:a {:href repo :target "_blank"} repo])
 
 (defpartial repos [repos]
-  [:div (interpose ", " (map repo repos))])
+            [:div (interpose ", " (map repo repos))])
 
 (defn display-results [results]
   (d/set-html! (d/by-id "results") (items results))
@@ -49,10 +49,10 @@
       (do
         (helper/show (d/by-id "loader"))
         (fm/remote
-         (query-codeq query) [results]
-         (display-results results)
-         (helper/hide (d/by-id "loader"))
-         (helper/hide (d/by-id "error-messages"))))
+          (query-codeq query) [results]
+          (display-results results)
+          (helper/hide (d/by-id "loader"))
+          (helper/hide (d/by-id "error-messages"))))
       (do
         (helper/show (d/by-id "error-messages"))
         (d/set-html! (d/by-id "error-offsets")
@@ -60,6 +60,14 @@
         (select-character (d/by-id "query-text") (first error-offsets))
         (helper/hide (d/by-id "loader"))))))
 
+(defn queue-import [_]
+  (helper/show (d/by-id "import-status"))
+  (d/set-text! (d/by-id "import-status") "Queueing import")
+  (let [address (d/value (d/by-id "repo-address"))]
+    (fm/remote
+      (queue-import address) [_]
+      (d/set-text! (d/by-id "import-status")
+                   (str "Importing " address ".. you may not see it right away.")))))
 
 (defn ^:export setup []
   (fm/remote
@@ -67,6 +75,7 @@
    (d/set-html! (d/by-id "available-repos")
                 (repos result)))
   (evt/listen! (d/by-id "query-submit") :click submit-query)
+  (evt/listen! (d/by-id "import-repo-btn") :click queue-import)
   (when (development?)
     (repl/connect (str host ":9000/repl"))))
 

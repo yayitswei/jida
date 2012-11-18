@@ -12,6 +12,15 @@
             [:div.repos
              [:p "Available repos: "
               [:div#available-repos]]]
+            [:div
+             [:label "Add your repo"]
+             [:input#repo-address.input-xlarge
+              {:type "text"
+               :value "git@github.com:yayitswei/jikken.git"}]
+             [:input#import-repo-btn.btn.btn-small
+              {:value "import"
+               :type "submit"}]
+             [:div#import-status.alert.alert-info ""]]
             [:textarea#query-text
              {:rows 3
               :placeholder "Your query"}
