@@ -14,7 +14,8 @@
               [:div#available-repos]]]
             [:textarea#query-text
              {:rows 3
-              :placeholder "Your query"}]
+              :placeholder "Your query"}
+             "[:find ?repo-names :where [?repos :repo/uri ?repo-names]]"]
             [:input#query-submit.btn.btn-large.btn-primary {:value "run" :type "submit"}]
             [:img#loader {:style "display:none;" :src "https://www.zenboxapp.com/assets/loading.gif"}]
             [:div#error-messages.alert {:style "display:none;"} "Your parens at offet(s) "

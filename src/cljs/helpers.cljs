@@ -1,6 +1,8 @@
 (ns cljs.helpers
   (:require [domina :as d]))
 
+(declare paren? paren-type acceptable-paren?)
+
 (defn show [node-seq]
   "Sets the display style attr of a node-seq to block (visible)"
   (d/set-style! node-seq "display" "block"))

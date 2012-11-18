@@ -37,11 +37,16 @@
   (helper/show (d/by-id "results")))
 
 
-(defn submit-query [_]  
+(defn select-character [text-area offset]
+  (selection/setStart text-area offset)
+  (selection/setEnd text-area (inc offset)))
+
+
+(defn submit-query [_]
   (let [query (d/value (d/by-id "query-text"))
         [valid-query? error-offsets] (helper/balanced-parens? query)]
     (if valid-query?
-      (do 
+      (do
         (helper/show (d/by-id "loader"))
         (fm/remote
          (query-codeq query) [results]
@@ -54,10 +59,6 @@
                      (clojure.string/join ", " error-offsets))
         (select-character (d/by-id "query-text") (first error-offsets))
         (helper/hide (d/by-id "loader"))))))
-
-(defn select-character [text-area offset]
-  (selection/setStart text-area offset)
-  (selection/setEnd text-area (inc offset)))
 
 
 (defn ^:export setup []
