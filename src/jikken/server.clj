@@ -15,13 +15,10 @@
 ; 3. Author-specific queries: explore contributor history
 ; 4. Import repos
 
-(def default-redis-uri "redis://localhost")
-
+(def redis-uri (or (System/getenv "REDISTOGO_URL") "redis://localhost"))
 (defonce redis-conn (atom nil))
-
 (defn connect-redis []
-  (let [uri (or (System/getenv "REDISTOGO_URL") default-redis-uri)]
-    (reset! redis-conn (redis/init :url uri))))
+  (reset! redis-conn (redis/init :url redis-uri)))
 
 (server/load-views-ns 'jikken.views)
 
