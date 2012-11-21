@@ -1,4 +1,4 @@
-(ns jikken.views.common
+(ns jida.views.common
   (:use [noir.core :only [defpartial]]
         [hiccup.page :only [include-css include-js html5]]))
 

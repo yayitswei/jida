@@ -1,4 +1,4 @@
-(defproject jikken "0.1.0-SNAPSHOT"
+(defproject jida "0.1.0-SNAPSHOT"
             :plugins [[lein-cljsbuild "0.2.9"]
                       [lein-swank "1.4.4"]]
             :description "FIXME: write this!"
@@ -30,4 +30,4 @@
                            :output-dir "resources/public/js/bin"
                            :optimizations :simple}}}
                         }
-            :main jikken.server)
+            :main jida.server)

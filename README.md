@@ -1,4 +1,4 @@
-# jikken
+# jida
 
 A website written in noir. 
 

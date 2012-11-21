@@ -1,4 +1,4 @@
-(ns jikken.datomic
+(ns jida.datomic
   (:require [datomic.api :as d]))
 
 (def db-name

@@ -1,6 +1,6 @@
-(ns jikken.server
+(ns jida.server
   (:require [noir.server :as server]
-            [jikken.datomic :as jida]
+            [jida.datomic :as jida]
             [clj-redis.client :as redis])
   (:use [noir.fetch.remotes]))
 
@@ -20,7 +20,7 @@
 (defn connect-redis []
   (reset! redis-conn (redis/init :url redis-uri)))
 
-(server/load-views-ns 'jikken.views)
+(server/load-views-ns 'jida.views)
 
 (defonce conn (atom nil))
 
@@ -30,7 +30,7 @@
     (reset! conn (jida/connect))
     (connect-redis)
     (server/start port {:mode mode
-                        :ns 'jikken})))
+                        :ns 'jida})))
 
 (defremote query-codeq [q]
   (println "Received query for" q)

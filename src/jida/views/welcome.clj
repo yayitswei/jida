@@ -1,6 +1,6 @@
-(ns jikken.views.welcome
-  (:require [jikken.views.common :as common]
-            [jikken.datomic :as jida]
+(ns jida.views.welcome
+  (:require [jida.views.common :as common]
+            [jida.datomic :as jida]
             [noir.content.getting-started])
   (:use [noir.core :only [defpage]]))
 
@@ -16,7 +16,7 @@
              [:label "Add your repo"]
              [:input#repo-address.input-xlarge
               {:type "text"
-               :value "git@github.com:yayitswei/jikken.git"}]
+               :value "git@github.com:yayitswei/jida.git"}]
              [:input#import-repo-btn.btn.btn-small
               {:value "import"
                :type "submit"}]
