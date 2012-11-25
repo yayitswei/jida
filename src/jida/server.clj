@@ -35,4 +35,4 @@
     result))
 
 (defremote queue-import [address]
-  (jiqueue/queu-import address))
+  (jiqu/queu-import address))
