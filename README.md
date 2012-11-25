@@ -12,6 +12,8 @@ For now, visit http://jida.herokuapp.com - Deploy instructions will come later
  
 ## Ideas
  
+ * GUI-approach to building/editing queries based on the schem
+ * Include the default Codeq schema as a GUI element for quick reference (Maybe use goog.ui.zippy?)
  * Function-specific queries: explore functions
  * Function history: Most frequent commit author ("Who changed this function most?")
  * Calculate code complexity for a function over time, sort by current most complex functions, who contributed most complexity, when?
