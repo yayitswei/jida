@@ -16,7 +16,9 @@
              [:li
               [:a {:target "_blank" :href "http://docs.datomic.com/tutorial.html"} "Datomic query tutorial"]]
              [:li
-              [:a {:target "_blank" :href "https://github.com/devn/codeq-playground/blob/master/src/com/thinkslate/codeq_playground/core.clj"} "Useful example queries"]]]
+              [:a {:target "_blank" :href "https://github.com/devn/codeq-playground/blob/master/src/com/thinkslate/codeq_playground/core.clj"} "Useful example queries"]]
+             [:li
+              [:a {:target "_blank" :href "https://github.com/yayitswei/jida"} "Jida Source"]]]
             [:div.repos
              [:p "Available repos: "
               [:div#available-repos]]]
