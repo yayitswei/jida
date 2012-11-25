@@ -1,7 +1,7 @@
 (ns jida.server
   (:require [noir.server :as server]
             [jida.datomic :as jida]
-            [clj-redis.client :as redis])
+            [jida.queue :as jiqu])
   (:use [noir.fetch.remotes]))
 
 ; Ideas
@@ -15,11 +15,6 @@
 ; 3. Author-specific queries: explore contributor history
 ; 4. Import repos
 
-(def redis-uri (or (System/getenv "REDIS_URI") "redis://localhost"))
-(defonce redis-conn (atom nil))
-(defn connect-redis []
-  (reset! redis-conn (redis/init :url redis-uri)))
-
 (server/load-views-ns 'jida.views)
 
 (defonce conn (atom nil))
@@ -28,7 +23,6 @@
   (let [mode (keyword (or (first m) :dev))
         port (Integer. (get (System/getenv) "PORT" "8080"))]
     (reset! conn (jida/connect))
-    (connect-redis)
     (server/start port {:mode mode
                         :ns 'jida})))
 
@@ -41,4 +35,4 @@
     result))
 
 (defremote queue-import [address]
-  (redis/rpush @redis-conn "tasks" address))
+  (jiqueue/queu-import address))
