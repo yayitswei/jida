@@ -9,6 +9,14 @@
          (common/layout
            [:div.query
             [:h1 "Jida - Explore Clojure Projects"]
+            [:h2 "Getting started"]
+            [:ul.schema
+             [:li
+              [:a {:target "_blank" :href "http://cloud.github.com/downloads/Datomic/codeq/codeq.pdf"} "Codeq schema"]]
+             [:li
+              [:a {:target "_blank" :href "http://docs.datomic.com/tutorial.html"} "Datomic query tutorial"]]
+             [:li
+              [:a {:target "_blank" :href "https://github.com/devn/codeq-playground/blob/master/src/com/thinkslate/codeq_playground/core.clj"} "Useful example queries"]]]
             [:div.repos
              [:p "Available repos: "
               [:div#available-repos]]]
