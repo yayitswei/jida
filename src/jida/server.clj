@@ -14,6 +14,8 @@
 ; 2. Repo-wide queries: explore projects
 ; 3. Author-specific queries: explore contributor history
 ; 4. Import repos
+; 5. Allow me to save/share/fork queries I think are useful
+; 6. Related to 5, take queries from url so we can have pastie-like sharing
 
 (server/load-views-ns 'jida.views)
 
