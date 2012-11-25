@@ -8,7 +8,7 @@ For now, visit http://jida.herokuapp.com - Deploy instructions will come later
 
 ## TODO
 
- * Add deploy instructions for frontend to Heroku
+ * Add deploy instructions for frontend to Heroku so anyone can fork/deploy/experiment
  
 ## Ideas
  
