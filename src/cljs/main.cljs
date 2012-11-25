@@ -69,9 +69,9 @@
         (helper/show (d/by-id "import-status"))
         (d/set-text! (d/by-id "import-status") "Queueing import")
         (fm/remote
-         (queue-import address) [_]
+         (queue-import url) [_]
          (d/set-text! (d/by-id "import-status")
-                      (str "Importing " address ".. you may not see it right away."))))
+                      (str "Importing " url ".. you may not see it right away."))))
       ; Invalid url
       (display-error "That looks like an invalid Git url. It must start with 'https://'"))))
 
