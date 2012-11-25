@@ -3,6 +3,7 @@
                       [lein-swank "1.4.4"]]
             :description "FIXME: write this!"
             :dependencies [[org.clojure/clojure "1.4.0"]
+                           [com.taoensso/carmine "1.0.0"]
                            [domina "1.0.1"]
                            [fetch "0.1.0-alpha2"]
                            [crate "0.2.1"]
