@@ -15,7 +15,7 @@
 ; 3. Author-specific queries: explore contributor history
 ; 4. Import repos
 
-(def redis-uri (or (System/getenv "REDISTOGO_URL") "redis://localhost"))
+(def redis-uri (or (System/getenv "REDIS_URI") "redis://localhost"))
 (defonce redis-conn (atom nil))
 (defn connect-redis []
   (reset! redis-conn (redis/init :url redis-uri)))
