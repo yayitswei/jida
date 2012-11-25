@@ -54,20 +54,26 @@
           (helper/hide (d/by-id "loader"))
           (helper/hide (d/by-id "error-messages"))))
       (do
-        (helper/show (d/by-id "error-messages"))
-        (d/set-html! (d/by-id "error-offsets")
-                     (clojure.string/join ", " error-offsets))
+           (display-error (str "Your parens at offet(s) " (clojure.string/join ", " error-offsets) " aren't properly balanced, please check again"))
         (select-character (d/by-id "query-text") (first error-offsets))
         (helper/hide (d/by-id "loader"))))))
 
+(defn display-error [message]
+  (helper/show (d/by-id "error-messages"))
+  (d/set-html! (d/by-id "error-messages") message))
+
 (defn queue-import [_]
-  (helper/show (d/by-id "import-status"))
-  (d/set-text! (d/by-id "import-status") "Queueing import")
-  (let [address (d/value (d/by-id "repo-address"))]
-    (fm/remote
-      (queue-import address) [_]
-      (d/set-text! (d/by-id "import-status")
-                   (str "Importing " address ".. you may not see it right away.")))))
+  (let [url (d/value (d/by-id "repo-address"))]
+    (if (helper/valid-git-url? url)
+      (do
+        (helper/show (d/by-id "import-status"))
+        (d/set-text! (d/by-id "import-status") "Queueing import")
+        (fm/remote
+         (queue-import address) [_]
+         (d/set-text! (d/by-id "import-status")
+                      (str "Importing " address ".. you may not see it right away."))))
+      ; Invalid url
+      (display-error "That looks like an invalid Git url. It must start with 'https://'"))))
 
 (defn ^:export setup []
   (fm/remote

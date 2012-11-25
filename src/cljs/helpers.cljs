@@ -83,3 +83,9 @@
   "Given a vector STACK of previous *open* [index paren]'s, return whether the new paren is acceptable"
   (= (pairs (last (last stack)))
      new))
+
+(defn https-url? [url]
+  (= (subs url 0 8) "https://"))
+
+(defn valid-git-url? [url]
+  (https-url? url))

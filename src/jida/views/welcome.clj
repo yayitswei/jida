@@ -16,7 +16,7 @@
              [:label "Add your repo"]
              [:input#repo-address.input-xlarge
               {:type "text"
-               :value "git@github.com:yayitswei/jida.git"}]
+               :value "https://github.com/clojure/clojure.git"}]
              [:input#import-repo-btn.btn.btn-small
               {:value "import"
                :type "submit"}]
@@ -27,7 +27,5 @@
              "[:find ?repo-names :where [?repos :repo/uri ?repo-names]]"]
             [:input#query-submit.btn.btn-large.btn-primary {:value "run" :type "submit"}]
             [:img#loader {:style "display:none;" :src "https://www.zenboxapp.com/assets/loading.gif"}]
-            [:div#error-messages.alert {:style "display:none;"} "Your parens at offet(s) "
-             [:span#error-offsets]
-             " aren't properly balanced, please check again"]
+            [:div#error-messages.alert {:style "display:none;"} ]
             [:p#results]]))
