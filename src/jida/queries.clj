@@ -25,10 +25,7 @@
 
 (defremote save-query [{query :query :as query-item}]
   {:pre [query]}
-  (mc/save-and-return "queries"
-                      (assoc query-item
-                             :created (java.util.Date.))
-                      query-item))
+  (mc/save-and-return "queries" query-item))
 
 (defremote get-query [id]
   (mc/find-by-id "queries" (id->object-id id)))
