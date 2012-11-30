@@ -20,15 +20,20 @@
 (defn make-serializeable [query]
   (update-in query [:_id] object-id->id))
 
+(def serialize (comp make-serializeable add-create-time))
+
 (defn connect-mongo! []
  (connect-via-uri! mongo-uri))
 
 (defremote save-query [{query :query :as query-item}]
   {:pre [query]}
-  (mc/save-and-return "queries" query-item))
+  (serialize (mc/save-and-return "queries" query-item)))
 
 (defremote get-query [id]
-  (mc/find-by-id "queries" (id->object-id id)))
+           (try
+             (serialize
+               (mc/find-by-id "queries" (id->object-id id)))
+             (catch Exception e nil)))
 
 (defremote all-queries []
-  (map make-serializeable (mc/find-maps "queries")))
+  (map serialize (mc/find-maps "queries")))
