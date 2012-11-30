@@ -1,8 +1,9 @@
 (ns jida.server
   (:require [noir.server :as server]
             [jida.datomic :as jida]
-            [jida.queue :as jiqu])
-  (:use [noir.fetch.remotes]))
+            [jida.queue :as jiqu]
+            [jida.queries :as queries])
+  (:use [noir.fetch.remotes] ))
 
 ; Ideas
 ; 1. Function-specific queries: explore functions
@@ -25,6 +26,7 @@
   (let [mode (keyword (or (first m) :dev))
         port (Integer. (get (System/getenv) "PORT" "8080"))]
     (reset! conn (jida/connect))
+    (queries/connect-mongo!)
     (server/start port {:mode mode
                         :ns 'jida})))
 
