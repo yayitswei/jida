@@ -20,7 +20,10 @@
 (defn make-serializeable [query]
   (update-in query [:_id] object-id->id))
 
-(def serialize (comp make-serializeable add-create-time))
+(defn log-it [item]
+  (println item))
+
+(def serialize (comp log-it make-serializeable add-create-time))
 
 (defn connect-mongo! []
  (connect-via-uri! mongo-uri))
