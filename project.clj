@@ -4,6 +4,8 @@
             :description "FIXME: write this!"
             :dependencies [[org.clojure/clojure "1.4.0"]
                            [com.taoensso/carmine "1.0.0"]
+                           [org.clojure/google-closure-library "0.0-2029"]
+                           [org.clojure/google-closure-library-third-party "0.0-2029"]
                            [domina "1.0.1"]
                            [fetch "0.1.0-alpha2"]
                            [crate "0.2.1"]
