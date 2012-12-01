@@ -3,7 +3,7 @@
             [jida.datomic :as jida]
             [jida.queue :as jiqu]
             [jida.queries :as queries])
-  (:use [noir.fetch.remotes] ))
+  (:use [noir.fetch.remotes]))
 
 ; Ideas
 ; 1. Function-specific queries: explore functions

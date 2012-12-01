@@ -39,11 +39,7 @@
               ]
              [:div.row
               [:div.span11
-               [:p#results] 
-               ]
-
-              ]
-             ]
+               [:p#results]]]]
             [:div#repos.tab-pane
              [:div.repos
               [:p "Available repos: "
