@@ -39,6 +39,15 @@
 (defpartial repos [repos]
             [:div (interpose ", " (map repo repos))])
 
+(defn query-link [id]
+  (str "/?query-id=" id))
+
+(defpartial query-history-item [{:keys [title description _id]}]
+            [:li [:a {:href (query-link _id)} title]])
+
+(defpartial query-history [items]
+            [:ul (map query-history-item items)])
+
 (defn display-results [results]
   (d/set-html! (d/by-id "results") (items results))
   (helper/show (d/by-id "results")))
@@ -98,12 +107,10 @@
       (d/set-attr! (d/by-id "query-save") :disabled true)
       (d/remove-attr! (d/by-id "query-save") :disabled))))
 
-(defn set-query-history! [query-list]
-  (d/log "Query history: " query-list))
-
 (defn update-query-history! []
-  (fm/letrem [query-history (all-queries)]
-             (d/log query-history)))
+  (fm/letrem [history (all-queries)]
+             (d/log history)
+             (d/set-html! (d/by-id "query-history") (query-history history))))
 
 (defn save-query! []
   (let [title (js/prompt "Query title")
@@ -130,7 +137,7 @@
                (d/log initial-query-id query)
                (d/log query)
                (set-query-field (:query query))
-               (set-query-description! (:description query))
+               (set-query-description! (str ": " (:description query)))
                (set-query-title! (:title query))))
   (update-query-history!)
   (when (development?)

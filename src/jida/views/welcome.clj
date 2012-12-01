@@ -32,8 +32,10 @@
                :type "submit"}]
              [:div#import-status.alert.alert-info ""]]
             [:div
+             [:label "Recent saved queries"]
+             [:div#query-history]]
+            [:div
              [:strong#query-title]
-             [:span ": "]
              [:span#description]]
             [:textarea#query-text
              {:rows 3
