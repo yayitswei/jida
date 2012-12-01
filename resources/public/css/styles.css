@@ -51,3 +51,7 @@ body {
 .controls {
   text-align: right;
 }
+
+.results.alert-error {
+  margin-top: 20px;
+}

@@ -38,4 +38,10 @@
 ;          (d/db conn) rules "clojure.core/+")
 
 (defn query [q conn]
+  (println q)
+  (println (count q))
   (apply hash-set (d/q q (d/db conn) rules)))
+
+(defn extract-args
+  (take-while #(not (keyword? %)) (drop 1 (drop-while #(not (= :find %)) q))))
+

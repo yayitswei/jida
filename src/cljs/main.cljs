@@ -6,7 +6,9 @@
             [domina.events :as evt]
             [fetch.remotes :as remotes]
             [goog.Uri :as uri]
-            [goog.dom.selection :as selection])
+            [goog.dom.selection :as selection]
+            [cljs.reader :as reader]
+            )
 
   (:use-macros [crate.def-macros :only [defpartial]])
   (:require-macros [fetch.macros :as fm]))
@@ -22,16 +24,19 @@
 (def initial-query-id
   (.getParameterValue parsed-uri "query-id"))
 
-(defpartial item [fields]
-            [:div.result-item
-             [:table.table.table-bordered.table-striped
-              [:tbody
-               (map #(vector :tr [:td %]) fields)]]])
+(defpartial results-item [fields]
+            [:tr (map #(vector :td %) fields)])
 
-(defpartial items [items]
+(defpartial results-items [items headers]
             [:div.results
              [:p (count items) " returned."]
-             [:div.result-items (map item items)]])
+            [:table.table.table-bordered.table-striped
+             [:thead
+              [:tr (map #(vector :th %) headers)]]
+             [:tbody (map results-item items)]]])
+
+(defpartial results-error [{msg :error}]
+            [:div.results.alert.alert-error msg])
 
 (defpartial repo [[repo]]
             [:a {:href repo :target "_blank"} repo])
@@ -57,8 +62,22 @@
 (defpartial query-history [items]
             [:ul (map query-history-item items)])
 
-(defn display-results [results]
-  (d/set-html! (d/by-id "results") (items results))
+(defn safe-read [s]
+  (binding [reader/*read-eval* false]
+    (reader/read-string s)))
+
+(defn extract-find-args [query]
+  (let [q (safe-read query)]
+    (map str
+         (take-while #(not (keyword? %))
+                     (drop 1 (drop-while #(not (= :find %)) q))))))
+
+(defn display-results [results query]
+  (d/log query (extract-find-args query))
+  (d/set-html! (d/by-id "results")
+               (if (:error results)
+                 (results-error results)
+                 (results-items results (extract-find-args query))))
   (helper/show (d/by-id "results")))
 
 
@@ -78,7 +97,7 @@
         (helper/show (d/by-id "loader"))
         (fm/remote
           (query-codeq query) [results]
-          (display-results results)
+          (display-results results query)
           (helper/hide (d/by-id "loader"))
           (helper/hide (d/by-id "error-messages"))))
       (do
