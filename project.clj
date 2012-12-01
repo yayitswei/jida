@@ -15,8 +15,6 @@
                            [com.novemberain/monger "1.4.0"]
                            [clj-redis "0.0.12"]]
             :min-lein-version "2.0.0"
-            :repl-options {:nrepl-middleware
-                           [cemerick.piggieback/wrap-cljs-repl]}
             :profiles {:production
                        {:hooks [leiningen.cljsbuild]}}
             :cljsbuild {:builds

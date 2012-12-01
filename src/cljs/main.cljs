@@ -84,6 +84,12 @@
 (defn set-query-field [query]
   (d/set-text! (d/by-id "query-text") query))
 
+(defn set-query-title! [title]
+  (d/set-text! (d/by-id "query-title") title))
+
+(defn set-query-description! [description]
+  (d/set-text! (d/by-id "description") description))
+
 (defn check-save-button []
   (d/log "Checking the save button")
   (let [query-node (d/by-id "query-text")
@@ -92,12 +98,20 @@
       (d/set-attr! (d/by-id "query-save") :disabled true)
       (d/remove-attr! (d/by-id "query-save") :disabled))))
 
+(defn set-query-history! [query-list]
+  (d/log "Query history: " query-list))
+
+(defn update-query-history! []
+  (fm/letrem [query-history (all-queries)]
+             (d/log query-history)))
+
 (defn save-query! []
   (let [title (js/prompt "Query title")
         description (js/prompt "Describe the query")
         query-value (d/value (d/by-id "query-text"))]
-    (letrem [result (save-query {:query query-value :description description :title title})]
-            (d/log "Save result: " result))))
+    (fm/letrem [result (save-query {:query query-value :description description :title title})]
+               (update-query-history!)
+               result)))
 
 (defn ^:export setup []
   (fm/remote
@@ -111,9 +125,14 @@
   (evt/listen! (d/by-id "query-text") :focus check-save-button)
   (evt/listen! (d/by-id "query-text") :blur check-save-button)
   (when initial-query-id
-    ;(letrem [query (get-query initial-query-id)]           (set-query-field query))
-    (set-query-field "This is an initial query!")
-    )
+    (d/log "Loading existing query for " initial-query-id)
+    (fm/letrem [query (get-query initial-query-id)]
+               (d/log initial-query-id query)
+               (d/log query)
+               (set-query-field (:query query))
+               (set-query-description! (:description query))
+               (set-query-title! (:title query))))
+  (update-query-history!)
   (when (development?)
     (repl/connect (str host ":9000/repl"))))
 
