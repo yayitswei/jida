@@ -14,8 +14,10 @@
 (defn object-id->id [object-id]
   (str object-id))
 
-(defn add-create-time [query]
-  (assoc query :created (-> query :_id .getTime)))
+(defn add-create-time [{id :_id :as query}]
+  (if id
+    (assoc query :created (.getTime id))
+    query))
 
 (defn make-serializeable [query]
   (update-in query [:_id] object-id->id))
@@ -35,7 +37,7 @@
 (defremote get-query [id]
            (try
              (serialize
-               (mc/find-by-id "queries" (id->object-id id)))
+               (mc/find-map-by-id "queries" (id->object-id id)))
              (catch Exception e nil)))
 
 (defremote all-queries []
