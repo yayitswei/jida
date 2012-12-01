@@ -49,7 +49,10 @@
   (if (empty? description) "" (str ": " description)))
 
 (defpartial query-history-item [{:keys [title description _id]}]
-            [:li [:a {:href (query-link _id)} (friendly-title title)]])
+            [:li
+             [:a {:href (query-link _id)} (friendly-title title)]
+             (friendly-description description)
+             ])
 
 (defpartial query-history [items]
             [:ul (map query-history-item items)])
