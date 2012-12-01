@@ -39,3 +39,7 @@ body {
 #import-status {
   display: none;
 }
+
+#query-submit {
+  margin-right: 10px;
+}

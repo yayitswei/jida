@@ -42,8 +42,14 @@
 (defn query-link [id]
   (str "/?query-id=" id))
 
+(defn friendly-title [title]
+  (if (empty? title) "untitled" title))
+
+(defn friendly-description [description]
+  (if (empty? description) "" (str ": " description)))
+
 (defpartial query-history-item [{:keys [title description _id]}]
-            [:li [:a {:href (query-link _id)} title]])
+            [:li [:a {:href (query-link _id)} (friendly-title title)]])
 
 (defpartial query-history [items]
             [:ul (map query-history-item items)])
@@ -125,22 +131,26 @@
    (query-codeq "[:find ?repo-names :where [?repos :repo/uri ?repo-names]]") [result]
    (d/set-html! (d/by-id "available-repos")
                 (repos result)))
+
   (evt/listen! (d/by-id "query-submit") :click submit-query)
   (evt/listen! (d/by-id "query-save") :click save-query!)
   (evt/listen! (d/by-id "import-repo-btn") :click queue-import)
   (evt/listen! (d/by-id "query-text") :keypress check-save-button)
   (evt/listen! (d/by-id "query-text") :focus check-save-button)
   (evt/listen! (d/by-id "query-text") :blur check-save-button)
+
   (when initial-query-id
     (d/log "Loading existing query for " initial-query-id)
-    (fm/letrem [query (get-query initial-query-id)]
+    (fm/letrem [{:keys [title description query]} (get-query initial-query-id)]
                (d/log initial-query-id query)
                (d/log query)
-               (set-query-field (:query query))
-               (set-query-description! (str ": " (:description query)))
-               (set-query-title! (:title query))))
+               (set-query-field query)
+               (set-query-description! (friendly-description description))
+               (set-query-title! (friendly-title title))))
+
   (update-query-history!)
-  (when (development?)
-    (repl/connect (str host ":9000/repl"))))
+
+  (comment (when (development?)
+    (repl/connect (str host ":9000/repl")))))
 
 (set! (.-onload js/window) setup)
