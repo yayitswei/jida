@@ -59,6 +59,6 @@ body {
 #query-history li {
   white-space: nowrap;
   width: 225px;
-  text-overflow: ellipses;
+  text-overflow: ellipsis;
   overflow: hidden;
 }
