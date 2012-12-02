@@ -1,5 +1,6 @@
 (ns jida.queries
-  (:require [monger.collection :as mc])
+  (:require [monger.collection :as mc]
+            [monger.query :as mq])
   (:use [monger.core :only [connect-via-uri!]]
         [noir.fetch.remotes]
         monger.operators)
@@ -39,3 +40,10 @@
 
 (defremote all-queries []
   (map serialize (mc/find-maps "queries")))
+
+(defremote recent-queries []
+           (map serialize
+                (mq/with-collection "queries"
+                                    (mq/find {})
+                                    (mq/sort (sorted-map :_id -1))
+                                    (mq/limit 10))))

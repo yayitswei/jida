@@ -136,7 +136,7 @@
       (d/remove-attr! (d/by-id "query-save") :disabled))))
 
 (defn update-query-history! []
-  (fm/letrem [history (all-queries)]
+  (fm/letrem [history (recent-queries)]
              (d/log history)
              (d/set-html! (d/by-id "query-history") (query-history history))))
 
