@@ -1,7 +1,7 @@
 (defproject jida "0.1.0-SNAPSHOT"
             :plugins [[lein-cljsbuild "0.2.9"]
-                      [lein-swank "1.4.4"]]
-            :description "FIXME: write this!"
+                      [yayitswei/lein-deploy-app "0.1.0-SNAPSHOT"]]
+            :description "hosted codeq"
             :dependencies [[org.clojure/clojure "1.4.0"]
                            [com.taoensso/carmine "1.0.0"]
                            [org.clojure/google-closure-library "0.0-2029"]
@@ -15,8 +15,6 @@
                            [com.novemberain/monger "1.4.0"]
                            [clj-redis "0.0.12"]]
             :min-lein-version "2.0.0"
-            :profiles {:production
-                       {:hooks [leiningen.cljsbuild]}}
             :cljsbuild {:builds
                         {:dev
                          {:source-path "src/cljs"
@@ -32,4 +30,7 @@
                            :output-dir "resources/public/js/bin"
                            :optimizations :simple}}}
                         }
+            :s3 {:bucket "jida"
+                 :root "resources/public/"
+                 :files ["js/bin/main.js"]}
             :main jida.server)

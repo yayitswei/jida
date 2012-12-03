@@ -4,8 +4,15 @@
 
 (def prod? (System/getenv "LEIN_NO_DEV"))
 
+(def asset-host (if prod?
+                  "http://jida.s3.amazonaws.com"
+                  nil))
+
 (def main-js
   (if prod? "/js/bin/main.js" "/js/bin-debug/main.js"))
+
+(defn asset [file]
+  (str asset-host file))
 
 (defpartial layout [& content]
             (html5
@@ -20,5 +27,5 @@
                  "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
                  "//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"
                  "/js/init.js"
-                 main-js)
+                 (asset main-js))
                ]))
