@@ -56,6 +56,10 @@ body {
   margin-top: 20px;
 }
 
+#error-messages {
+  text-align: center;
+}
+
 /*
 #query-history li {
   white-space: nowrap;
